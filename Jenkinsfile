@@ -44,7 +44,7 @@ node {
         //restart Jenkins
         //or add sudoers file below line
         //jenkins ALL=(ALL) NOPASSWD:ALL
-        sh "${dockerCMD} build -t junaidkhan806/finance-me:${tagName} ."
+        sh "${dockerCMD} build -t junaidkhan806/banking:${tagName} ."
         
         }
         catch(Exception e){
@@ -63,7 +63,7 @@ node {
         withCredentials([string(credentialsId: 'dockerpassword', variable: 'dockerpassword')]) {
         // some block
         sh "${dockerCMD} login -u junaidkhan806 -p ${dockerpassword}"
-        sh "${dockerCMD} push junaidkhan806/finance-me:${tagName}"
+        sh "${dockerCMD} push junaidkhan806/banking:${tagName}"
         }
     }
     stage('deploy the application'){
