@@ -16,7 +16,7 @@ node {
     stage ('code checkout'){
         try{
         echo 'pulling the code from github repo'
-        git 'https://github.com/niladrimondal/star-agile-banking-finance.git'
+        git 'https://github.com/junaid806/star-agile-banking-finance.git'
         }
         catch(Exception e){
             echo 'Exception Occur'
@@ -44,7 +44,7 @@ node {
         //restart Jenkins
         //or add sudoers file below line
         //jenkins ALL=(ALL) NOPASSWD:ALL
-        sh "${dockerCMD} build -t niladrimondaldcr/finance-me:${tagName} ."
+        sh "${dockerCMD} build -t junaidkhan806/finance-me:${tagName} ."
         
         }
         catch(Exception e){
@@ -60,10 +60,10 @@ node {
     }
     stage('push the docker image to dockerhub'){
         echo 'pushing docker image'
-        withCredentials([string(credentialsId: 'docker-password', variable: 'DockerPassword')]) {
+        withCredentials([string(credentialsId: 'dockerpassword', variable: 'dockerpassword')]) {
         // some block
-        sh "${dockerCMD} login -u niladrimondaldcr -p ${DockerPassword}"
-        sh "${dockerCMD} push niladrimondaldcr/finance-me:${tagName}"
+        sh "${dockerCMD} login -u junaidkhan806 -p ${dockerpassword}"
+        sh "${dockerCMD} push junaidkhan806/finance-me:${tagName}"
         }
     }
     stage('deploy the application'){
